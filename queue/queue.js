@@ -1,34 +1,36 @@
-class Queue {
-  constructor(items = []) {
-    this.items = items
-  }
-
-  enqueue(elements) {
-    this.items.concat(elements)
-  }
-
-  dequeue() {
-    this.items.shift()
-  }
-
-  front() {
-    if (this.items.length === 0) {
-      return null
+const Queue = (function() {
+  let items = []
+  class Queue {
+    enqueue(elements) {
+      items.push(elements)
     }
-    return this.items[0]
+
+    dequeue() {
+      return items.shift()
+    }
+
+    front() {
+      if (items.length === 0) {
+        return null
+      }
+      return items[0]
+    }
+
+    isEmpty() {
+      return items.length === 0
+    }
+
+    size() {
+      return items.length
+    }
+
+    print() {
+      console.log(items)
+    }
   }
 
-  isEmpty() {
-    return this.items.length === 0
-  }
+  return Queue
+})()
 
-  size() {
-    return this.items.length
-  }
-
-  print() {
-    console.log(this.items)
-  }
-}
-
-const queue = new Queue([1, 2, 3, 4, 5])
+const queue = new Queue()
+module.exports = Queue
