@@ -8,7 +8,7 @@ const loseLoseHashCode = (key) => {
   return hash % 37
 }
 
-function hashMapWithLinkedList() {
+function HashMapWithLinkedList() {
   const table = []
 
   const ValuePair = function (key, value) {
@@ -24,7 +24,7 @@ function hashMapWithLinkedList() {
     let position = loseLoseHashCode(key)
 
     if (!table[position]) {
-      table[key] = new LinkedList()
+      table[position] = new LinkedList()
     }
 
     table[position].append(new ValuePair(key, value))
@@ -68,5 +68,53 @@ function hashMapWithLinkedList() {
     }
     return true
   }
+
+  this.print = function() {
+    for (let i = 0; i < table.length; ++i) {
+      if (table[i] !== undefined) {
+        console.log(table[i].toString());
+      }
+    }
+  }
 }
 
+const hashMapWithLinkedList = new HashMapWithLinkedList()
+hashMapWithLinkedList.put('Gandalf', 'gandalf@email.com');
+hashMapWithLinkedList.put('John', 'johnsnow@email.com');
+hashMapWithLinkedList.put('Tyrion', 'tyrion@email.com');
+hashMapWithLinkedList.put('Aaron', 'aaron@email.com');
+hashMapWithLinkedList.put('Donnie', 'donnie@email.com');
+hashMapWithLinkedList.put('Ana', 'ana@email.com');
+hashMapWithLinkedList.put('Jonathan', 'jonathan@email.com');
+hashMapWithLinkedList.put('Jamie', 'jamie@email.com');
+hashMapWithLinkedList.put('Sue', 'sue@email.com');
+hashMapWithLinkedList.put('Mindy', 'mindy@email.com');
+hashMapWithLinkedList.put('Paul', 'paul@email.com');
+hashMapWithLinkedList.put('Nathan', 'nathan@email.com');
+
+
+console.log('**** Printing Hash **** ');
+
+hashMapWithLinkedList.print();
+
+console.log('**** Get **** ');
+
+console.log(hashMapWithLinkedList.get('Jamie'));
+console.log(hashMapWithLinkedList.get('Sue'));
+console.log(hashMapWithLinkedList.get('Jonathan'));
+console.log(hashMapWithLinkedList.get('Loiane'));
+
+console.log('**** Remove **** ');
+
+console.log(hashMapWithLinkedList.remove('Gandalf'));
+console.log(hashMapWithLinkedList.get('Gandalf'));
+hashMapWithLinkedList.print();
+
+console.log(hashMapWithLinkedList.remove('Sue'));
+hashMapWithLinkedList.print();
+
+console.log(hashMapWithLinkedList.remove('Jamie'));
+hashMapWithLinkedList.print();
+
+console.log(hashMapWithLinkedList.remove('Donnie'));
+hashMapWithLinkedList.print();

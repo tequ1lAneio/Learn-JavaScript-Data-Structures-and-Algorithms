@@ -19,7 +19,7 @@ function LinkedList() {
     } else {
       current = head
       while (current.next) {
-        current = head
+        current = current.next
       }
       current.next = node
     }
@@ -116,6 +116,7 @@ function LinkedList() {
 
     while (current) {
       string += `${current.element}${current.next ? 'n' : ''}`
+      current = current.next
     }
 
     return string
