@@ -37,7 +37,7 @@ function HashMapWithLinearProbing() {
       return false
     }
 
-    if (table[position].key = key) {
+    if (table[position].key === key) {
       return table[position].value
     } else {
       position++
@@ -59,7 +59,7 @@ function HashMapWithLinearProbing() {
       return false
     }
     
-    if (table[position].key = key) {
+    if (table[position].key === key) {
       table[position] = undefined
     } else {
       position++
