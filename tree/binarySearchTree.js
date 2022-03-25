@@ -118,7 +118,48 @@ function BinarySearchTree() {
   }
 
   this.remove = function(key) {
+    const findMinNode = function(node) {
+      while (node && node.left) {
+        node = node.left
+      }
+      return node
+    }
+    const removeNode = function(node, key) {
+      if (!node) {
+        return null
+      }
 
+      if (node.key > key) {
+        node.left = removeNode(node.left, key)
+        return node
+      } else if (node.key < key) {
+        node.right = removeNode(node.right, key)
+        return node
+      } else {
+        // for a leaf node
+        if (!node.left & !node.right) {
+          node = null
+          return node
+        }
+
+        // for nodes only 1 son
+        if (!node.left) {
+          node = node.right
+          return node
+        } else if (!node.right) {
+          node = node.left
+          return node
+        }
+
+        // for nodes with 2 sons
+        const aux = findMinNode(node.right)
+        node.key = aux.key
+        node.right = removeNode(node.right, aux.key)
+        return node
+      }
+    }
+
+    return removeNode(root, key)
   }
 
   this.printNode = function(value) {
@@ -144,10 +185,14 @@ tree.insert(25)
 
 tree.insert(6)
 
-// tree.inOrderTraverse(tree.printNode)
+tree.inOrderTraverse(tree.printNode)
 // tree.preOrderTraverse(tree.printNode)
 // tree.postOrderTraverse(tree.printNode)
 
-console.log(tree.min())
-console.log(tree.max())
-console.log(tree.search(4))
+// console.log(tree.min())
+// console.log(tree.max())
+// console.log(tree.search(4))
+
+console.log('------------')
+tree.remove(15)
+tree.inOrderTraverse(tree.printNode)
