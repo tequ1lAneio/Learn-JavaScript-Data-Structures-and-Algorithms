@@ -43,3 +43,5 @@ function Dictionary() {
     return values
   }
 }
+
+module.exports = Dictionary
