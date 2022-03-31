@@ -43,6 +43,18 @@ function Graph() {
     }
   }
 
+  this.BFS = function(v) {
+    const colors = initializeColor()
+    const queue = new Queue()
+    const d = []
+    const pred = []
+    queue.enqueue(v)
+
+    for (let i = 0; i < vertices; i++) {
+
+    }
+  }
+
   this.addVertex = function (vertex) {
     vertices.push(vertex)
     adjList.set(vertex, [])
