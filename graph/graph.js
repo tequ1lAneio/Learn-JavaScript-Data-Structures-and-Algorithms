@@ -46,12 +46,34 @@ function Graph() {
   this.BFS = function(v) {
     const colors = initializeColor()
     const queue = new Queue()
-    const d = []
-    const pred = []
+    const d = {}
+    const pred = {}
     queue.enqueue(v)
 
-    for (let i = 0; i < vertices; i++) {
+    for (let i = 0; i < vertices.length; i++) {
+      d[vertices[i]] = 0
+      pred[vertices[i]] = null
+    }
 
+    while (!queue.isEmpty()) {
+      const u = queue.dequeue()
+      const neighbors = adjList.get(u)
+      colors[u] = 'grey'
+      for (let i = 0; i < neighbors.length; i++) {
+        const w = neighbors[i]
+        if (colors[w] === 'white') {
+          colors[w] = 'grey'
+          d[w] = d[u] + 1
+          pred[w] = u
+          queue.enqueue(w)
+        }
+      }
+      colors[u] = 'black'
+    }
+
+    return {
+      distances: d,
+      predecessors: pred
     }
   }
 
@@ -81,7 +103,8 @@ function Graph() {
 }
 
 const graph = new Graph()
-const vertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'X', 'Y', 'Z']
+const vertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+// const vertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'X', 'Y', 'Z']
 for (let i = 0; i <  vertices.length; i++) {
   graph.addVertex(vertices[i])
 }
@@ -96,9 +119,10 @@ graph.addEdge('D', 'H')
 graph.addEdge('B', 'E')
 graph.addEdge('B', 'F')
 graph.addEdge('E', 'I')
-graph.addEdge('I', 'X')
-graph.addEdge('I', 'Y')
-graph.addEdge('I', 'Z')
+// graph.addEdge('I', 'X')
+// graph.addEdge('I', 'Y')
+// graph.addEdge('I', 'Z')
 
-console.log(graph.toString())
-graph.bfs(vertices[0], printNode)
+// console.log(graph.toString())
+// graph.bfs(vertices[0], printNode)
+console.log(graph.BFS(vertices[0]))
