@@ -41,6 +41,8 @@ function Graph() {
       }
       queue.print()
     }
+
+    console.log(colors)
   }
 
   this.BFS = function(v) {
@@ -62,7 +64,7 @@ function Graph() {
       for (let i = 0; i < neighbors.length; i++) {
         const w = neighbors[i]
         if (colors[w] === 'white') {
-          colors[w] = 'grey'
+          colors[w] = 'grey'  // to avoid exploring by neighbor
           d[w] = d[u] + 1
           pred[w] = u
           queue.enqueue(w)
@@ -74,6 +76,97 @@ function Graph() {
     return {
       distances: d,
       predecessors: pred
+    }
+  }
+
+  this.getPathsByBFS = function(v) {
+    const { predecessors } = this.BFS(v)
+    const paths = []
+
+    for (let i = 0; i < vertices.length; i++) {
+      let vertex = vertices[i]
+      let path = vertex
+      while (predecessors[vertex]) {
+        path += ` - ${predecessors[vertex]}`
+        vertex = predecessors[vertex]
+      }
+      paths.push(path)
+    }
+
+    return paths
+  }
+
+  this.dfs = function(fn) {
+    const colors = initializeColor()
+
+    const dfsVisit = function(u) {
+      colors[u] = 'grey'
+      if (fn) {
+        fn(u)
+      }
+
+      const neighbors = adjList.get(u)
+      for (let i = 0; i < neighbors.length; i++) {
+        const w = neighbors[i]
+        if (colors[w] === 'white') {
+          dfsVisit(w)
+        }
+      }
+
+      colors[u] = 'black'
+    }
+
+    for (let i = 0; i < vertices.length; i++) {   // When it comes to a graph which is not all connected.
+      if (colors[vertices[i]] === 'white') {
+        dfsVisit(vertices[i])
+      }
+    }
+
+    console.log(colors)
+  }
+
+  let time = 0
+  this.DFS = function() {  // TopSort also can be achieved by the return value `finished`.
+    let colors = initializeColor()
+    let d = {}
+    let f = {}
+    let p = {}
+    time = 0
+
+    const DFSVisit = function(u) {
+      colors[u] = 'grey'
+      d[u] = ++time
+
+      const neighbors = adjList.get(u)
+      for (let i = 0; i < neighbors.length; i++) {
+        const w = neighbors[i]
+        if (colors[w] === 'white') {
+          p[w] = u
+          DFSVisit(w)
+        }
+      }
+
+      colors[u] = 'black'
+      f[u] = ++time
+    }
+
+    for (let i = 0; i < vertices.length; i++) {
+      const vertex = vertices[i]
+      d[vertex] = 0
+      f[vertex] = 0
+      p[vertex] = null
+    }
+
+    for (let i = 0; i < vertices.length; i++) {
+      if (colors[vertices[i]] === 'white') {
+        DFSVisit(vertices[i])
+      }
+    }
+
+    return {
+      discovery: d,
+      finished: f,
+      predecessors: p,
     }
   }
 
@@ -126,3 +219,7 @@ graph.addEdge('E', 'I')
 // console.log(graph.toString())
 // graph.bfs(vertices[0], printNode)
 console.log(graph.BFS(vertices[0]))
+// console.log(graph.getPathsByBFS(vertices[0]))
+
+// graph.dfs(printNode)
+console.log(graph.DFS())
