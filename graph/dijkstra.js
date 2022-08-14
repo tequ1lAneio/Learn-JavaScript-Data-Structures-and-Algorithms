@@ -108,4 +108,12 @@ class Dijkstra {
 }
 
 const dij = new Dijkstra(graph)
-console.log(dij.dijkstra(0))
+
+console.time('dijkstra')
+// console.log(dij.dijkstra(0))
+
+for (let i = 0; i < graph.length; i++) {
+  dij.dijkstra(i)
+}
+
+console.timeEnd('dijkstra')

@@ -34,7 +34,7 @@ function MinimumSpanningTree(graph) {
         parent[0] = -1;
 
         for (i = 0; i < length-1; i++) {
-            var u = minKey(key, visited);
+            var u = minKey.call(this, key, visited);
             visited[u] = true;
 
             for (var v = 0; v < length; v++){
@@ -84,7 +84,7 @@ function MinimumSpanningTree(graph) {
             parent = [], cost,
             ne = 0, a, b, u, v, i, j, min;
 
-        cost = initializeCost();
+        cost = initializeCost.call(this);
 
         while(ne<length-1) {
 
@@ -110,4 +110,40 @@ function MinimumSpanningTree(graph) {
 
         return parent;
     }
+}
+
+const prim = new MinimumSpanningTree([
+    [0, 2, 4, 0, 0, 0],
+    [2, 0, 2, 4, 2, 0],
+    [4, 2, 0, 0, 3, 0],
+    [0, 4, 0, 0, 3, 2],
+    [0, 2, 3, 3, 0, 2],
+    [0, 0, 0, 2, 2, 0],
+])
+// console.log(prim.prim())
+
+
+const kruskal = new MinimumSpanningTree([
+    [0, 2, 4, 0, 0, 0],
+    [2, 0, 2, 4, 2, 0],
+    [4, 2, 0, 0, 3, 0],
+    [0, 4, 0, 0, 3, 2],
+    [0, 2, 3, 3, 0, 2],
+    [0, 0, 0, 2, 2, 0],
+])
+
+const graph = [
+    [0, 2, 4, 0, 0, 0],
+    [2, 0, 2, 4, 2, 0],
+    [4, 2, 0, 0, 3, 0],
+    [0, 4, 0, 0, 3, 2],
+    [0, 2, 3, 3, 0, 2],
+    [0, 0, 0, 2, 2, 0],
+]
+console.log(kruskal.kruskal())
+
+const parent = kruskal.kruskal()
+console.log('Edge   Weight');
+for (let i = 1; i < graph.length; i++) {
+    console.log(parent[i] + ' - ' + i + '   ' + graph[i][parent[i]]);
 }

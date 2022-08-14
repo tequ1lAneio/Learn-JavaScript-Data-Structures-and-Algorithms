@@ -415,3 +415,14 @@ function ArrayList(){
     };
 
 }
+
+const arrayList = new ArrayList()
+arrayList.insert(3)
+arrayList.insert(5)
+arrayList.insert(1)
+arrayList.insert(4)
+arrayList.insert(2)
+arrayList.insert(6)
+
+arrayList.mergeSort()
+console.log(arrayList.toString())
