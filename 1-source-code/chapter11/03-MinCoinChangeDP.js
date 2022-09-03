@@ -23,7 +23,7 @@ function MinCoinChange(coins){
                 (newMin.length || !newAmount)
                 ){
                 min = [coin].concat(newMin);
-                console.log('new Min ' + min + ' for ' + amount);
+                // console.log('new Min ' + min + ' for ' + amount);
             }
         }
         return (cache[amount] = min);
@@ -34,5 +34,5 @@ function MinCoinChange(coins){
 var minCoinChange = new MinCoinChange([1, 5, 10, 25]);
 console.log(minCoinChange.makeChange(36));
 
-var minCoinChange2 = new MinCoinChange([1, 3, 4]);
-console.log(minCoinChange2.makeChange(6));
+// var minCoinChange2 = new MinCoinChange([1, 3, 4]);
+// console.log(minCoinChange2.makeChange(6));
